@@ -17,3 +17,11 @@ bin/
 
 # Pycharm IDE
 .idea/
+
+#local env
+merlin_env
+
+# extra-tools
+tools/REAPER/
+tools/magphase/
+tools/postfilter/

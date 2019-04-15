@@ -1,0 +1,197 @@
+Step 5:
+synthesizing durations...
+Architecture: x86_64
+Distribution: Ubuntu 18.04.1 LTS
+HOSTNAME=barn-e-03
+USER=sini
+ 
+PATH:
+    /vrac/asini/workspace/merlin_install/merlin/venv/merlin_env/bin
+    /vrac/asini/utils/bin
+    /vrac/asini/miniconda3/bin
+    /usr/local/sbin
+    /usr/local/bin
+    /usr/sbin
+    /usr/bin
+    /sbin
+    /bin
+    /usr/games
+    /usr/local/games
+    /snap/bin
+LD_LIBRARY_PATH:
+    /vrac/asini/workspace/libgpuarray_install/lib
+    /vrac/asini/workspace/libgpuarray_install/lib
+PYTHONPATH:
+PYTHONBIN: python
+MERLIN_THEANO_FLAGS:
+    cuda.root=/usr/local/cuda-9.0/
+    dnn.enabled=False
+    floatX=float32
+    on_unused_input=ignore
+ 
+Running on GPU id=0 ...
+2019-04-14 16:37:19,988 [1;32mINFO    [0m       main    : Installation information:
+2019-04-14 16:37:19,988 [1;32mINFO    [0m       main    :   Merlin directory: /vrac/asini/workspace/merlin_install/merlin
+2019-04-14 16:37:19,988 [1;32mINFO    [0m       main    :   PATH:
+2019-04-14 16:37:19,988 [1;32mINFO    [0m       main    :       /vrac/asini/workspace/merlin_install/merlin/venv/merlin_env/bin
+2019-04-14 16:37:19,988 [1;32mINFO    [0m       main    :       /vrac/asini/utils/bin
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /vrac/asini/miniconda3/bin
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /usr/local/sbin
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /usr/local/bin
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /usr/sbin
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /usr/bin
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /sbin
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /bin
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /usr/games
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /usr/local/games
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /snap/bin
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :   LD_LIBRARY_PATH:
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /vrac/asini/workspace/libgpuarray_install/lib
+2019-04-14 16:37:19,989 [1;32mINFO    [0m       main    :       /vrac/asini/workspace/libgpuarray_install/lib
+2019-04-14 16:37:19,990 [1;32mINFO    [0m       main    :   Python version: 2.7.15rc1 (default, Nov 12 2018, 14:31:15) [GCC 7.3.0]
+2019-04-14 16:37:19,990 [1;32mINFO    [0m       main    :     PYTHONPATH:
+2019-04-14 16:37:19,990 [1;32mINFO    [0m       main    :   Numpy version: 1.16.2
+2019-04-14 16:37:19,990 [1;32mINFO    [0m       main    :   Theano version: 1.0.4
+2019-04-14 16:37:19,990 [1;32mINFO    [0m       main    :     THEANO_FLAGS: mode=FAST_RUN,device=cuda0,cuda.root=/usr/local/cuda-9.0/,dnn.enabled=False,floatX=float32,on_unused_input=ignore
+2019-04-14 16:37:19,990 [1;32mINFO    [0m       main    :     device: cuda0
+2019-04-14 16:37:20,022 [1;32mINFO    [0m       main    :   Git is available in the working directory:
+2019-04-14 16:37:20,047 [1;32mINFO    [0m       main    :     Merlin version: Merlin_V0-227-g6ab3ccc
+2019-04-14 16:37:20,066 [1;32mINFO    [0m       main    :     branch: master
+2019-04-14 16:37:20,087 [1;32mINFO    [0m       main    :     diff to Merlin version:
+2019-04-14 16:37:20,087 [1;32mINFO    [0m       main    :       M src/run_merlin.py
+2019-04-14 16:37:20,087 [1;32mINFO    [0m       main    :       M src/setup_env.sh
+2019-04-14 16:37:20,087 [1;32mINFO    [0m       main    :       (all diffs logged in feed_forward_6_tanh_04_37PM_April_14_2019.log.gitdiff)
+2019-04-14 16:37:20,112 [1;32mINFO    [0m       main    : Execution information:
+2019-04-14 16:37:20,114 [1;32mINFO    [0m       main    :   HOSTNAME: barn-e-03.irisa.enssat.univ-rennes1.fr
+2019-04-14 16:37:20,114 [1;32mINFO    [0m       main    :   USER: sini
+2019-04-14 16:37:20,114 [1;32mINFO    [0m       main    :   PID: 5094
+2019-04-14 16:37:20,139 [1;32mINFO    [0m       main    : Input label dimension is 321
+2019-04-14 16:37:20,140 [1;32mINFO    [0m       main    : preparing label data (input) using standard HTS style labels
+2019-04-14 16:37:20,208 [1;32mINFO    [0m       labels  : loaded /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/prompt-lab/refsentest_0001.lab,  31 labels
+2019-04-14 16:37:20,208 [1;32mINFO    [0m       labels  : loaded /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/prompt-lab/refsentest_0001_bis.lab,  31 labels
+2019-04-14 16:37:20,375 [1;32mINFO    [0m  acoustic_norm: Loaded min max values from the trained data for feature dimension of 321
+2019-04-14 16:37:20,399 [1;32mINFO    [0m       main    : label dimension is 321
+2019-04-14 16:37:20,399 [1;32mINFO    [0m       main    : generating from DNN
+2019-04-14 16:37:21,904 [1;32mINFO    [0m dnn_generation: generating    1 of    2: /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/gen-lab/refsentest_0001_bis.lab
+[[0.01   0.01   0.01   ... 0.1325 0.99   0.206 ]
+ [0.01   0.01   0.01   ... 0.1325 0.99   0.01  ]
+ [0.01   0.01   0.01   ... 0.1325 0.99   0.206 ]
+ ...
+ [0.01   0.01   0.01   ... 0.1325 0.99   0.01  ]
+ [0.01   0.01   0.01   ... 0.1325 0.99   0.206 ]
+ [0.01   0.01   0.01   ... 0.1325 0.99   0.01  ]]
+Generation of th cmp file
+2019-04-14 16:37:23,437 [1;32mINFO    [0m dnn_generation: generating    2 of    2: /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/gen-lab/refsentest_0001.lab
+[[0.01   0.01   0.01   ... 0.1325 0.01   0.206 ]
+ [0.01   0.01   0.01   ... 0.1325 0.01   0.01  ]
+ [0.01   0.01   0.01   ... 0.1325 0.01   0.206 ]
+ ...
+ [0.01   0.01   0.01   ... 0.1325 0.01   0.01  ]
+ [0.01   0.01   0.01   ... 0.1325 0.01   0.206 ]
+ [0.01   0.01   0.01   ... 0.1325 0.01   0.01  ]]
+Generation of th cmp file
+2019-04-14 16:37:23,518 [1;32mINFO    [0mparam_generation: processing    1 of    2: /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/gen-lab/refsentest_0001_bis.cmp
+2019-04-14 16:37:23,518 [1;32mINFO    [0mparam_generation: processing    2 of    2: /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/gen-lab/refsentest_0001.cmp
+2019-04-14 16:37:23,518 [1;32mINFO    [0m       dur     : loaded /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/prompt-lab/refsentest_0001_bis.lab,  31 labels
+2019-04-14 16:37:23,519 [1;32mINFO    [0m       dur     : loaded /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/prompt-lab/refsentest_0001.lab,  31 labels
+Lock freed
+synthesizing speech...
+Architecture: x86_64
+Distribution: Ubuntu 18.04.1 LTS
+HOSTNAME=barn-e-03
+USER=sini
+ 
+PATH:
+    /vrac/asini/workspace/merlin_install/merlin/venv/merlin_env/bin
+    /vrac/asini/utils/bin
+    /vrac/asini/miniconda3/bin
+    /usr/local/sbin
+    /usr/local/bin
+    /usr/sbin
+    /usr/bin
+    /sbin
+    /bin
+    /usr/games
+    /usr/local/games
+    /snap/bin
+LD_LIBRARY_PATH:
+    /vrac/asini/workspace/libgpuarray_install/lib
+    /vrac/asini/workspace/libgpuarray_install/lib
+PYTHONPATH:
+PYTHONBIN: python
+MERLIN_THEANO_FLAGS:
+    cuda.root=/usr/local/cuda-9.0/
+    dnn.enabled=False
+    floatX=float32
+    on_unused_input=ignore
+ 
+Running on GPU id=0 ...
+2019-04-14 16:37:28,063 [1;32mINFO    [0m       main    : Installation information:
+2019-04-14 16:37:28,063 [1;32mINFO    [0m       main    :   Merlin directory: /vrac/asini/workspace/merlin_install/merlin
+2019-04-14 16:37:28,063 [1;32mINFO    [0m       main    :   PATH:
+2019-04-14 16:37:28,063 [1;32mINFO    [0m       main    :       /vrac/asini/workspace/merlin_install/merlin/venv/merlin_env/bin
+2019-04-14 16:37:28,063 [1;32mINFO    [0m       main    :       /vrac/asini/utils/bin
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /vrac/asini/miniconda3/bin
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /usr/local/sbin
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /usr/local/bin
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /usr/sbin
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /usr/bin
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /sbin
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /bin
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /usr/games
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /usr/local/games
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /snap/bin
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :   LD_LIBRARY_PATH:
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /vrac/asini/workspace/libgpuarray_install/lib
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :       /vrac/asini/workspace/libgpuarray_install/lib
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :   Python version: 2.7.15rc1 (default, Nov 12 2018, 14:31:15) [GCC 7.3.0]
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :     PYTHONPATH:
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :   Numpy version: 1.16.2
+2019-04-14 16:37:28,064 [1;32mINFO    [0m       main    :   Theano version: 1.0.4
+2019-04-14 16:37:28,065 [1;32mINFO    [0m       main    :     THEANO_FLAGS: mode=FAST_RUN,device=cuda0,cuda.root=/usr/local/cuda-9.0/,dnn.enabled=False,floatX=float32,on_unused_input=ignore
+2019-04-14 16:37:28,065 [1;32mINFO    [0m       main    :     device: cuda0
+2019-04-14 16:37:28,095 [1;32mINFO    [0m       main    :   Git is available in the working directory:
+2019-04-14 16:37:28,116 [1;32mINFO    [0m       main    :     Merlin version: Merlin_V0-227-g6ab3ccc
+2019-04-14 16:37:28,132 [1;32mINFO    [0m       main    :     branch: master
+2019-04-14 16:37:28,154 [1;32mINFO    [0m       main    :     diff to Merlin version:
+2019-04-14 16:37:28,154 [1;32mINFO    [0m       main    :       M src/run_merlin.py
+2019-04-14 16:37:28,154 [1;32mINFO    [0m       main    :       M src/setup_env.sh
+2019-04-14 16:37:28,155 [1;32mINFO    [0m       main    :       (all diffs logged in feed_forward_6_tanh_04_37PM_April_14_2019.log.gitdiff)
+2019-04-14 16:37:28,184 [1;32mINFO    [0m       main    : Execution information:
+2019-04-14 16:37:28,187 [1;32mINFO    [0m       main    :   HOSTNAME: barn-e-03.irisa.enssat.univ-rennes1.fr
+2019-04-14 16:37:28,187 [1;32mINFO    [0m       main    :   USER: sini
+2019-04-14 16:37:28,187 [1;32mINFO    [0m       main    :   PID: 5431
+2019-04-14 16:37:28,215 [1;32mINFO    [0m       main    : Input label dimension is 325
+2019-04-14 16:37:28,216 [1;32mINFO    [0m       main    : preparing label data (input) using standard HTS style labels
+2019-04-14 16:37:28,293 [1;32mINFO    [0m       labels  : loaded /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/gen-lab/refsentest_0001_bis.lab,  31 labels
+2019-04-14 16:37:28,293 [1;32mINFO    [0m       labels  : loaded /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/gen-lab/refsentest_0001.lab,  31 labels
+2019-04-14 16:37:28,452 [1;32mINFO    [0m  acoustic_norm: Loaded min max values from the trained data for feature dimension of 325
+2019-04-14 16:37:28,491 [1;32mINFO    [0m       main    : label dimension is 325
+2019-04-14 16:37:28,491 [1;32mINFO    [0m       main    : generating from DNN
+2019-04-14 16:37:30,021 [1;32mINFO    [0m dnn_generation: generating    1 of    2: /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/wav/refsentest_0001_bis.lab
+[[0.01       0.01       0.01       ... 0.01       0.01       0.06025641]
+ [0.01       0.01       0.01       ... 0.08939718 0.01919357 0.06025641]
+ [0.01       0.01       0.01       ... 0.17069976 0.02988478 0.06025641]
+ ...
+ [0.01       0.01       0.01       ... 0.3082622  0.9501297  0.05128205]
+ [0.01       0.01       0.01       ... 0.19809066 0.9732609  0.05128205]
+ [0.01       0.01       0.01       ... 0.10283536 0.9855093  0.05128205]]
+Generation of th cmp file
+2019-04-14 16:37:31,564 [1;32mINFO    [0m dnn_generation: generating    2 of    2: /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/wav/refsentest_0001.lab
+[[0.01       0.01       0.01       ... 0.01       0.01       0.06025641]
+ [0.01       0.01       0.01       ... 0.08939718 0.01919357 0.06025641]
+ [0.01       0.01       0.01       ... 0.17069976 0.02988478 0.06025641]
+ ...
+ [0.01       0.01       0.01       ... 0.3082622  0.9501297  0.05128205]
+ [0.01       0.01       0.01       ... 0.19809066 0.9732609  0.05128205]
+ [0.01       0.01       0.01       ... 0.10283536 0.9855093  0.05128205]]
+Generation of th cmp file
+2019-04-14 16:37:31,672 [1;32mINFO    [0mparam_generation: processing    1 of    2: /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/wav/refsentest_0001_bis.cmp
+2019-04-14 16:37:31,683 [1;32mINFO    [0mparam_generation: processing    2 of    2: /vrac/asini/workspace/merlin_install/merlin/egs/synpaflex_voices/s1/experiments/boule/test_synthesis/wav/refsentest_0001.cmp
+2019-04-14 16:37:31,694 [1;32mINFO    [0m       main    : reconstructing waveform(s)
+2019-04-14 16:37:31,694 [1;32mINFO    [0m wav_generation: creating waveform for    1 of    2: refsentest_0001_bis
+2019-04-14 16:37:33,356 [1;32mINFO    [0m wav_generation: creating waveform for    2 of    2: refsentest_0001
+Lock freed
+deleting intermediate synthesis files...
+synthesized audio files are in: experiments/mmebovary/test_synthesis/wav
+All successfull!! Your demo voice is ready :)

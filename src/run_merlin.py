@@ -353,6 +353,15 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
 
                 train_error.append(this_train_error)
 
+
+        # we define a function that returns the activation of layer 1 (after the tanh)
+        ## activate the function
+        	    
+            
+        #transformed_data = get_layer_1(X_batch) # activation of layer 1
+
+
+        ## ploting 
         train_data_reader.reset()
 
         logger.debug('calculating validation loss')
