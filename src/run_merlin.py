@@ -89,6 +89,10 @@ from utils.file_paths import FilePaths
 from utils.utils import read_file_list, prepare_file_path_list
 
 
+
+import pandas
+from datetime import datetime
+
 def extract_file_id_list(file_list):
     file_id_list = []
     for file_name in file_list:
@@ -302,6 +306,9 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
     previous_finetune_lr = finetune_lr
 
     epoch = 0
+    # Aghilas SINI (18/04/2019)
+    dict_embedding_layer={}
+
     while (epoch < training_epochs):
         epoch = epoch + 1
         
@@ -353,12 +360,8 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
 
                 train_error.append(this_train_error)
 
-
-        # we define a function that returns the activation of layer 1 (after the tanh)
-        ## activate the function
-        	    
-            
-        #transformed_data = get_layer_1(X_batch) # activation of layer 1
+        # Aghilas SINI (18/04/2019)
+        get_intermediate_output_layer(valid_x_file_list,dict_embedding_layer,dnn_model,epoch,n_ins)
 
 
         ## ploting 
@@ -416,6 +419,11 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
 
     if plot:
         plotlogger.save_plot('training convergence',title='Final training and validation error',xlabel='epochs',ylabel='error')
+    #Aghilas 17/04/2019
+    outEmbedding=pandas.DataFrame.from_dict(dict_embedding_layer, orient='index')
+    outEmbedding.to_csv('embedded_layer_{}.csv'.format(str(datetime.now()).replace(" ", "_")))
+
+
 
     return  best_validation_loss
 
@@ -522,6 +530,46 @@ def perform_acoustic_composition(delta_win, acc_win, in_file_list_dict, nn_cmp_f
     else:
         acoustic_worker = AcousticComposition(delta_win = delta_win, acc_win = acc_win)
         acoustic_worker.prepare_nn_data(in_file_list_dict, nn_cmp_file_list, cfg.in_dimension_dict, cfg.out_dimension_dict)
+
+
+
+
+
+def get_intermediate_output_layer(valid_x_file_list,dict_embedding_layer,model,epoch,n_ins,id_layer=0):
+    for valid_file_name in valid_x_file_list:
+        fid_lab = open(valid_file_name, 'rb')
+        #
+        features = numpy.fromfile(fid_lab, dtype=theano.config.floatX)
+        fid_lab.close()
+        features = features[:(n_ins * (features.size / n_ins))]
+        test_set_x = features.reshape((-1, n_ins))
+        #
+        embedding_layer_output=model.generate_hidden_layer(test_set_x,0)
+        embedding_layer_output=embedding_layer_output.ravel()
+        feat_size=len(embedding_layer_output)
+        if feat_size>20000:
+            feat_size=20000
+            
+        valid_file_name=os.path.splitext(os.path.basename(valid_file_name))[0]
+        dict_embedding_layer["{}_{}".format(valid_file_name,str(epoch).zfill(2))]=embedding_layer_output[:feat_size]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def main_function(cfg):

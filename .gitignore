@@ -25,3 +25,6 @@ merlin_env
 tools/REAPER/
 tools/magphase/
 tools/postfilter/
+
+**/embedding*.csv
+**/tensorbord/
