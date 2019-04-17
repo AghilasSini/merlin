@@ -26,5 +26,5 @@ tools/REAPER/
 tools/magphase/
 tools/postfilter/
 
-**/embedding*.csv
-**/tensorbord/
+egs/synpaflex_voices/s1/*.csv
+egs/synpaflex_voices/s1/scripts/utils/tensorboard/
