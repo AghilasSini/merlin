@@ -730,7 +730,7 @@ class ListDataProvider(object):
         temp_set_x = numpy.empty((self.buffer_size, self.n_ins))
         temp_set_y = numpy.empty((self.buffer_size, self.n_outs))
         current_index = 0
-
+        print(" input shape: {}  output shape: {}".format(temp_set_x.shape, temp_set_y.shape))
         ### first check whether there are remaining data from previous utterance
         if self.remain_frame_number > 0:
             temp_set_x[current_index:self.remain_frame_number, ] = self.remain_data_x

@@ -205,7 +205,7 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
     dropout_rate = hyper_params['dropout_rate']
 
     buffer_size = int(buffer_size / batch_size) * batch_size
-
+    print(" buffer_size {} batch_size  {}".format(buffer_size,batch_size))
     ###################
     (train_x_file_list, train_y_file_list) = train_xy_file_list
     (valid_x_file_list, valid_y_file_list) = valid_xy_file_list
@@ -361,7 +361,7 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
                 train_error.append(this_train_error)
 
         # Aghilas SINI (18/04/2019)
-        get_intermediate_output_layer(valid_x_file_list,dict_embedding_layer,dnn_model,epoch,n_ins)
+        get_intermediate_output_layer(valid_x_file_list,dict_embedding_layer,dnn_model,epoch,n_ins,cfg.rnn_batch_training)
 
 
         ## ploting 
@@ -535,7 +535,7 @@ def perform_acoustic_composition(delta_win, acc_win, in_file_list_dict, nn_cmp_f
 
 
 
-def get_intermediate_output_layer(valid_x_file_list,dict_embedding_layer,model,epoch,n_ins,id_layer=0):
+def get_intermediate_output_layer(valid_x_file_list,dict_embedding_layer,model,epoch,n_ins,io_reshape,id_layer=0):
     for valid_file_name in valid_x_file_list:
         fid_lab = open(valid_file_name, 'rb')
         #
@@ -544,6 +544,10 @@ def get_intermediate_output_layer(valid_x_file_list,dict_embedding_layer,model,e
         features = features[:(n_ins * (features.size / n_ins))]
         test_set_x = features.reshape((-1, n_ins))
         #
+        if io_reshape:
+            test_set_x = numpy.reshape(test_set_x, (1, test_set_x.shape[0], n_ins))
+            test_set_x = numpy.array(test_set_x, 'float32')
+
         embedding_layer_output=model.generate_hidden_layer(test_set_x,0)
         embedding_layer_output=embedding_layer_output.ravel()
         feat_size=len(embedding_layer_output)
@@ -919,6 +923,7 @@ def main_function(cfg):
             elif cfg.switch_to_tensorflow:
                 tf_instance.train_tensorflow_model()
             else:
+                print(train_x_file_list)
                 train_DNN(train_xy_file_list = (train_x_file_list, train_y_file_list), \
                       valid_xy_file_list = (valid_x_file_list, valid_y_file_list), \
                       nnets_file_name = nnets_file_name, \
