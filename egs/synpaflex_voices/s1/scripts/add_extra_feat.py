@@ -4,7 +4,7 @@ import glob
 import argparse
 import os
 import re
-import TextGrid
+#import TextGrid
 from gensim.models import Word2Vec
 from sklearn.decomposition import PCA
 # author: asini
@@ -14,18 +14,22 @@ from sklearn.decomposition import PCA
 # just for fun
 def build_args():
 	parser=argparse.ArgumentParser(description='')
+	parser.add_argument('file_id_list', type=str, nargs=1, help='input')
 	parser.add_argument('lab_dir_path', type=str, nargs=1, help='input')
 	parser.add_argument('feat_file_name', type=str, nargs=1, help='input')
-	parser.add_argument('outdirname', type=str, nargs=1, help='output')
-	parser.add_argument('w2v_model_name', type=str, nargs=1, help='output')
+	# parser.add_argument('outdirname', type=str, nargs=1, help='output')
+	# parser.add_argument('w2v_model_name', type=str, nargs=1, help='output')
 	return parser.parse_args()
 
-def add_extract_feat(nframes, nfeat,feat_file_name,lab_file_name,out_dir):
-	filename=os.path.basename(lab_file_name.split('.')[0])+'.xvector'
+def add_extract_feat(nframes, nfeat,feat_file_name,lab_file_name,out_dir,sep=' '):
+	print(lab_file_name)
+	filename=os.path.basename(os.path.splitext(lab_file_name)[0])+'.xvector'
+	print(filename)
 	full_file_name=os.path.join(out_dir,filename)
+	print(full_file_name)
 	features=numpy.zeros((nframes,nfeat),dtype=numpy.float32)
 	with open(feat_file_name,'r') as featfn:
-		data=numpy.array(featfn.readline().strip().split(' '),dtype=numpy.float32)
+		data=numpy.array(featfn.readline().strip().split(sep),dtype=numpy.float32)
 		for iframe in range(nframes):
 			features[iframe,:]=data
 		outfilename=open(full_file_name,'wb')
@@ -45,7 +49,6 @@ def extract_melody_feat(tier_name,tg,outfilename):
 
 def add_w2v_feat(word_tier_name,tg,outfilename,w2v_model):
 	with open(outfilename,'w') as outf:
-		print(outfilename)
 		for interval in tg[word_tier_name]:
 			start_time=int(interval.xmin()/1e-7)
 			end_time=int(interval.xmax()/1e-7)
@@ -81,25 +84,30 @@ def get_number_fames(lab_file_name):
 
 def main():
 	args=build_args()
+	file_id_list=args.file_id_list[0]
 	lab_dir_path=args.lab_dir_path[0]	
 	feat_file_name=args.feat_file_name[0]
-	outdirname=args.outdirname[0]
-	w2v_model_name=args.w2v_model_name[0]
+	# outdirname=args.outdirname[0]
+	# w2v_model_name=args.w2v_model_name[0]
 	nfeat=10
 	# default one for now
-	w2v_model={}
-	with open(w2v_model_name,'r') as w2v:
-		lines=w2v.readlines()
-		for line in lines:
-			word,emb=line.strip().split('|')
-			w2v_model[word]=emb
-	for textgridFilename in glob.glob(lab_dir_path+"/*.TextGrid")[:1]:
-		#nframes=get_number_fames(lab_file_name)
-		tg=TextGrid.TextGrid()
-		tg.read(textgridFilename)
-		outfilename=os.path.join(outdirname,os.path.basename(textgridFilename).split('.')[0]+'.lab')
-		#add_extract_feat(nframes,nfeat,feat_file_name,lab_file_name,outdirname)
-		add_w2v_feat("word",tg,outfilename,w2v_model)
+	# w2v_model={}
+	# with open(w2v_model_name,'r') as w2v:
+	# 	lines=w2v.readlines()
+	# 	for line in lines:
+	# 		word,emb=line.strip().split('|')
+	# 		w2v_model[word]=emb
+
+	file_list_name=[os.path.join(lab_dir_path,fname.strip()) for fname in  open(file_id_list,'r').readlines() ]
+	print(file_list_name)
+	for lab_file_name in file_list_name:
+		nframes=get_number_fames(lab_file_name)
+	# 	#tg=TextGrid.TextGrid()
+	# 	#tg.read(textgridFilename)
+		outdirname='./'
+	# 	#outfilename=os.path.join(outdirname,os.path.basename(textgridFilename).split('.')[0]+'.lab')
+		add_extract_feat(nframes,nfeat,feat_file_name,lab_file_name,outdirname,sep=";")
+		#add_w2v_feat("word",tg,outfilename,w2v_model)
 
 
 

@@ -5,11 +5,14 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 import codecs
 import pandas as pd
+import argparse
 
 
-
-
-
+def build_args():
+	parser=argparse.ArgumentParser(description='')
+	parser.add_argument('infile', type=str, nargs=1, help='input')
+	parser.add_argument('outfile', type=str, nargs=1, help='input')
+	return parser.parse_args()
 
 
 
@@ -25,7 +28,7 @@ def load_data(data_filename,size_emb=512):
 
 size_emb=512
 
-fid='/vrac/asini/kaldi/egs/sre16/v2/spk12_synpaflex_xvectors.txt'
+fid=build_args().infile[0]
 df=load_data(fid)
 
 # features
@@ -53,6 +56,6 @@ xs = pca.transform(xs)
 print(xs.shape)
 
 
-with open('xvector_spks_reduction.txt','w') as fl:
+with open(build_args().infil[e0],'w') as fl:
 	for sp,v in zip(y,xs):
 		fl.write('{}|{}\n'.format(sp[0],';'.join([ str(x) for x in v])))
