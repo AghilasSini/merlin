@@ -247,8 +247,8 @@ class configuration(object):
             ('linguistic_file_name' , os.path.join(self.work_dir, 'data/hed_feats.txt')   ,    'Labels', 'linguistic_file_name'),
             ('silence_pattern'    , ['*-#+*']                                             ,    'Labels', 'silence_pattern'),
             ('subphone_feats'     , 'full'                                                ,    'Labels', 'subphone_feats'),
-            ('additional_features', {}                                                    ,    'Labels', 'additional_features'),
-
+            ('additional_features', {}                                                   ,    'Labels', 'additional_features'),
+            #'xvector': 10, 'word2vec' : 50 
             ## For MagPhase Vocoder:
             #('label_align_orig_const_rate_dir', os.path.join(self.work_dir, 'data/label_state_align'), 'Labels', 'label_align_orig_const_rate'),
 
