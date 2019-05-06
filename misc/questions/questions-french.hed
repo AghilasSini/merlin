@@ -316,6 +316,6 @@ CQS "R-Phrase_Num-Syls" {/I:(\d+)_}
 CQS "R-Phrase_Num-Words" {_(\d+)/J:}
 CQS "Num-Syls_in_Utterance" {/J:(\d+)+}
 CQS "Num-Words_in_Utterance" {+(\d+)-}
-CQS "Num-Phrases_in_Utterance" {-(\d+)}
+CQS "Num-Phrases_in_Utterance" {-(\d+)/K:}
 CQS "Speaker_Id" {/K:(\d+)_}
 CQS "Speaker_Gender" {_(\d+)}

@@ -89,9 +89,10 @@ from utils.file_paths import FilePaths
 from utils.utils import read_file_list, prepare_file_path_list
 
 
-
+#add by Aghilas SINI
 import pandas
 from datetime import datetime
+from collections import OrderedDict
 
 def extract_file_id_list(file_list):
     file_id_list = []
@@ -153,7 +154,7 @@ def load_covariance(var_file_dict, out_dimension_dict):
     return  var
 
 
-def train_DNN(train_xy_file_list, valid_xy_file_list, \
+def train_DNN(outFilaname,train_xy_file_list, valid_xy_file_list, \
               nnets_file_name, n_ins, n_outs, ms_outs, hyper_params, buffer_size, plot=False, var_dict=None,
               cmp_mean_vector = None, cmp_std_vector = None, init_dnn_model_file = None):
 
@@ -205,7 +206,6 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
     dropout_rate = hyper_params['dropout_rate']
 
     buffer_size = int(buffer_size / batch_size) * batch_size
-    print(" buffer_size {} batch_size  {}".format(buffer_size,batch_size))
     ###################
     (train_x_file_list, train_y_file_list) = train_xy_file_list
     (valid_x_file_list, valid_y_file_list) = valid_xy_file_list
@@ -306,8 +306,6 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
     previous_finetune_lr = finetune_lr
 
     epoch = 0
-    # Aghilas SINI (18/04/2019)
-    dict_embedding_layer={}
 
     while (epoch < training_epochs):
         epoch = epoch + 1
@@ -361,7 +359,7 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
                 train_error.append(this_train_error)
 
         # Aghilas SINI (18/04/2019)
-        get_intermediate_output_layer(valid_x_file_list,dict_embedding_layer,dnn_model,epoch,n_ins,cfg.rnn_batch_training)
+        get_intermediate_output_layer(outFilaname,valid_x_file_list,dnn_model,epoch,n_ins,cfg.rnn_batch_training)
 
 
         ## ploting 
@@ -420,8 +418,8 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
     if plot:
         plotlogger.save_plot('training convergence',title='Final training and validation error',xlabel='epochs',ylabel='error')
     #Aghilas 17/04/2019
-    outEmbedding=pandas.DataFrame.from_dict(dict_embedding_layer, orient='index')
-    outEmbedding.to_csv('embedded_layer_{}.csv'.format(str(datetime.now()).replace(" ", "_")))
+    
+    
 
 
 
@@ -535,7 +533,8 @@ def perform_acoustic_composition(delta_win, acc_win, in_file_list_dict, nn_cmp_f
 
 
 
-def get_intermediate_output_layer(valid_x_file_list,dict_embedding_layer,model,epoch,n_ins,io_reshape,id_layer=0):
+def get_intermediate_output_layer(outFilaname,valid_x_file_list,model,epoch,n_ins,io_reshape,id_layer=0):
+    embedded_layer_output=[]
     for valid_file_name in valid_x_file_list:
         fid_lab = open(valid_file_name, 'rb')
         #
@@ -549,15 +548,16 @@ def get_intermediate_output_layer(valid_x_file_list,dict_embedding_layer,model,e
             test_set_x = numpy.array(test_set_x, 'float32')
 
         embedding_layer_output=model.generate_hidden_layer(test_set_x,0)
-        embedding_layer_output=embedding_layer_output.ravel()
-        feat_size=len(embedding_layer_output)
-        if feat_size>20000:
-            feat_size=20000
-            
-        valid_file_name=os.path.splitext(os.path.basename(valid_file_name))[0]
-        dict_embedding_layer["{}_{}".format(valid_file_name,str(epoch).zfill(2))]=embedding_layer_output[:feat_size]
-
-
+        for iframe,frame in enumerate(embedding_layer_output):
+            dict_embedding_layer=OrderedDict()
+            valid_file_name=os.path.splitext(os.path.basename(valid_file_name))[0]
+            dict_embedding_layer["FrameId"]="{}_{}_{}".format(valid_file_name,str(iframe).zfill(4),str(epoch).zfill(2))
+            for i,value in enumerate(frame):
+                dict_embedding_layer['emb_{}'.format(str(i).zfill(4))]=value
+            embedded_layer_output.append(dict_embedding_layer)
+    if epoch%5==0:
+        outEmbedding=pandas.DataFrame(embedded_layer_output)
+        outEmbedding.to_csv('{}_{}.csv'.format(outFilaname,str(epoch).zfill(2)),index=False)
 
 
 
@@ -674,7 +674,12 @@ def main_function(cfg):
         #generate_wav(gen_dir, file_id_list, cfg)     # generated speech
 
 
-
+    #Aghilas SINI
+    if cfg.DurationModel:
+        outFilaname='embedding_layer_dur'
+    if cfg.AcousticModel:
+        outFilaname='embedding_layer_acm'
+    outFilaname+='_'.join([str(hsize)+'_'+htype for htype,hsize in zip(cfg.hidden_layer_type,cfg.hidden_layer_size)])
     #-----------------------------------------
 
     if cfg.NORMLAB:
@@ -685,6 +690,7 @@ def main_function(cfg):
         if cfg.additional_features:
             out_feat_file_list = file_paths.out_feat_file_list
             in_dim = label_normaliser.dimension
+            outFilaname+='_'.join([ str(new_feature)+'_'+str(new_feature_dim) for new_feature, new_feature_dim in cfg.additional_features.items()])
 
             for new_feature, new_feature_dim in cfg.additional_features.items():
                 new_feat_dir  = os.path.join(data_dir, new_feature)
@@ -923,8 +929,7 @@ def main_function(cfg):
             elif cfg.switch_to_tensorflow:
                 tf_instance.train_tensorflow_model()
             else:
-                print(train_x_file_list)
-                train_DNN(train_xy_file_list = (train_x_file_list, train_y_file_list), \
+                train_DNN(outFilaname,train_xy_file_list = (train_x_file_list, train_y_file_list), \
                       valid_xy_file_list = (valid_x_file_list, valid_y_file_list), \
                       nnets_file_name = nnets_file_name, \
                       n_ins = lab_dim, n_outs = cfg.cmp_dim, ms_outs = cfg.multistream_outs, \

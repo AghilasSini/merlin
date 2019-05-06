@@ -56,7 +56,7 @@ class SilenceRemover(object):
     def remove_silence(self, in_data_list, in_align_list, out_data_list, dur_file_list=None):
         file_number = len(in_data_list)
         align_file_number = len(in_align_list)
-
+        print(file_number,align_file_number)
         if file_number != align_file_number:
             print("The number of input and output files does not equal!\n")
             sys.exit(1)

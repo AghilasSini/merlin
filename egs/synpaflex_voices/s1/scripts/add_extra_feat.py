@@ -17,13 +17,13 @@ def build_args():
 	parser.add_argument('file_id_list', type=str, nargs=1, help='input')
 	parser.add_argument('lab_dir_path', type=str, nargs=1, help='input')
 	parser.add_argument('feat_file_name', type=str, nargs=1, help='input')
-	# parser.add_argument('outdirname', type=str, nargs=1, help='output')
+        parser.add_argument('outdirname', type=str, nargs=1, help='output')
 	# parser.add_argument('w2v_model_name', type=str, nargs=1, help='output')
 	return parser.parse_args()
 
 def add_extract_feat(nframes, nfeat,feat_file_name,lab_file_name,out_dir,sep=' '):
 	print(lab_file_name)
-	filename=os.path.basename(os.path.splitext(lab_file_name)[0])+'.xvector'
+	filename=os.path.basename(os.path.splitext(lab_file_name)[0])+'.profile'
 	print(filename)
 	full_file_name=os.path.join(out_dir,filename)
 	print(full_file_name)
@@ -87,9 +87,9 @@ def main():
 	file_id_list=args.file_id_list[0]
 	lab_dir_path=args.lab_dir_path[0]	
 	feat_file_name=args.feat_file_name[0]
-	# outdirname=args.outdirname[0]
+	outdirname=args.outdirname[0]
 	# w2v_model_name=args.w2v_model_name[0]
-	nfeat=10
+	nfeat=32
 	# default one for now
 	# w2v_model={}
 	# with open(w2v_model_name,'r') as w2v:
@@ -101,10 +101,10 @@ def main():
 	file_list_name=[os.path.join(lab_dir_path,fname.strip()) for fname in  open(file_id_list,'r').readlines() ]
 	print(file_list_name)
 	for lab_file_name in file_list_name:
+		lab_file_name=lab_file_name+'.lab'
 		nframes=get_number_fames(lab_file_name)
 	# 	#tg=TextGrid.TextGrid()
 	# 	#tg.read(textgridFilename)
-		outdirname='./'
 	# 	#outfilename=os.path.join(outdirname,os.path.basename(textgridFilename).split('.')[0]+'.lab')
 		add_extract_feat(nframes,nfeat,feat_file_name,lab_file_name,outdirname,sep=";")
 		#add_w2v_feat("word",tg,outfilename,w2v_model)

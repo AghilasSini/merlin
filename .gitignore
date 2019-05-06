@@ -27,4 +27,5 @@ tools/magphase/
 tools/postfilter/
 
 **/*.csv
-egs/synpaflex_voices/s1/scripts/utils/tensorboard/
+egs/synpaflex_voices/s1/scripts/utils/*
+egs/synpaflex_voices/s1/scripts/utils/tensor*

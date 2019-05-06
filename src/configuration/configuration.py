@@ -247,8 +247,10 @@ class configuration(object):
             ('linguistic_file_name' , os.path.join(self.work_dir, 'data/hed_feats.txt')   ,    'Labels', 'linguistic_file_name'),
             ('silence_pattern'    , ['*-#+*']                                             ,    'Labels', 'silence_pattern'),
             ('subphone_feats'     , 'full'                                                ,    'Labels', 'subphone_feats'),
-            ('additional_features', {}                                                   ,    'Labels', 'additional_features'),
-            #'xvector': 10, 'word2vec' : 50 
+            ('additional_features', {'xvector': 9 }                                                   ,    'Labels', 'additional_features'),
+			#'xvector': 9 'prosody':16           
+			#'xvector': 10, 'word2vec' : 50 
+            #
             ## For MagPhase Vocoder:
             #('label_align_orig_const_rate_dir', os.path.join(self.work_dir, 'data/label_state_align'), 'Labels', 'label_align_orig_const_rate'),
 
@@ -288,7 +290,7 @@ class configuration(object):
 
             ('network_type'           , 'RNN'                                           , 'Architecture', 'network_type'),
             ('model_type'           , 'DNN'                                             , 'Architecture', 'model_type'),
-            ('hidden_layer_type'    , ['TANH', 'TANH', 'TANH', 'TANH', 'TANH', 'TANH']  , 'Architecture', 'hidden_layer_type'),
+            ('hidden_layer_type'    , ['TANH', 'TANH', 'TANH', 'TANH']  , 'Architecture', 'hidden_layer_type'),
             ('output_layer_type'    , 'LINEAR'                                          , 'Architecture', 'output_layer_type'),
             ('sequential_training'  , False                                             , 'Architecture', 'sequential_training'),
             ('rnn_batch_training'   , False                                             , 'Architecture', 'rnn_batch_training'),
@@ -342,7 +344,7 @@ class configuration(object):
             ('training_epochs'      , 25                            , 'Architecture', 'training_epochs'),
             ('hidden_activation'    , 'tanh'                        , 'Architecture', 'hidden_activation'),
             ('output_activation'    , 'linear'                      , 'Architecture', 'output_activation'),
-            ('hidden_layer_size'  , [1024, 1024, 1024, 1024, 1024, 1024], 'Architecture', 'hidden_layer_size'),
+            ('hidden_layer_size'  , [512,512,512,512], 'Architecture', 'hidden_layer_size'),
             ('private_hidden_sizes' , [1024]                         , 'Architecture', 'private_hidden_sizes'),
             ('stream_weights'       , [1.0]                         , 'Architecture', 'stream_weights'),
             ('private_l2_reg'       , 0.00001                       , 'Architecture', 'private_l2_reg'),

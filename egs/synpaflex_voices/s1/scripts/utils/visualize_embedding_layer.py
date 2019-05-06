@@ -10,11 +10,13 @@ from tensorflow.contrib.tensorboard.plugins import projector
 
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
-
+import re
+import os
 
 def build_args():
     parser=argparse.ArgumentParser(description='Significance Differance')
     parser.add_argument('dataFn',type=str,nargs=1,help='data filename ')
+    parser.add_argument('logdir',type=str,nargs=1,help='log directory name')
     return parser.parse_args()
 
 
@@ -22,13 +24,17 @@ def build_args():
 
 def main():
     dataFilename=build_args().dataFn[0]
+    logdir=build_args().logdir[0]
     dataFrame=pandas.read_csv(dataFilename)
     dataFrame=dataFrame.fillna(0)
     utts_epoch_id=[ str(utt).replace('_arctic','') for utt in dataFrame.iloc[:,0]]
     max_size=dataFrame.shape[0]
     utt2v = dataFrame.iloc[:,1:].values
+    if not os.path.exists(logdir):
+    	os.mkdir(logdir)
+
     #pretty_plot(utt2v,utts_epoch_id,out_plot_name='file_name')
-    use_tensorflow_tensorboard4project('tensorboard',utt2v,utts_epoch_id,max_size)
+    use_tensorflow_tensorboard4project(logdir,utt2v,utts_epoch_id,max_size)
 
 
 def pretty_plot(data_set,data_set_labels,out_plot_name):
@@ -52,10 +58,18 @@ def pretty_plot(data_set,data_set_labels,out_plot_name):
 def use_tensorflow_tensorboard4project(log_dir_name,data_set,data_set_labels,max_size):
     path=log_dir_name
     with codecs.open(path+"/metadata.tsv",'w+','utf-8') as fmeta:
-        fmeta.write('utt_name\tspeaker_name\n')
-        for utt in data_set_labels:
-            speaker_name=utt.split('_')[0]
-            fmeta.write('{}\t{}\n'.format(utt,speaker_name))
+        fmeta.write('frame_id\tutt_id\tspeaker_id\tgender\tbook_id\n')
+        for frame_id in data_set_labels:
+            speaker_id=frame_id.split('_')[0]
+            utt_id="_".join(frame_id.split('_')[1:3])
+            book_id=frame_id.split('_')[2]
+            print(utt_id)
+            if re.match(r'mfr',speaker_id):
+            	gender='male'
+            else:
+            	gender='female'
+
+            fmeta.write('{}\t{}\t{}\t{}\t{}\n'.format(frame_id,utt_id,speaker_id,gender,book_id))
     sess = tf.InteractiveSession()
     with tf.device('/cpu:0'):
          embedding = tf.Variable(data_set,trainable=False, name='embedding')

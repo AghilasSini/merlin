@@ -7,6 +7,19 @@ if test "$#" -ne 3; then
 exit 1   
 fi
 
+xvector=1
+
+
+
+
+
+
+
+
+
+
+
+
 
 current_working_dir=$(pwd)
 voice_dataset_dir=${current_working_dir}/database/${voice_name}
@@ -24,7 +37,13 @@ synthesis_dir=${voice_dir}/test_synthesis
 cp -rf ${voice_dataset_dir}/label_phone_align ${voice_dataset_dir}/file_id_list.scp ${acoustic_dir}/data
 cp -rf ${voice_dataset_dir}/label_phone_align ${voice_dataset_dir}/file_id_list.scp ${duration_dir}/data
 
-#if [ -d ${voice_dataset_dir}/prompt-lab ] ; then
+if [ $xvector -ne "0"  ] && [ -d ${voice_dataset_dir}/xvector ];then
+
+cp -rf ${voice_dataset_dir}/xvector ${acoustic_dir}/data
+cp -rf ${voice_dataset_dir}/xvector ${duration_dir}/data
+
+fi
+                             #if [ -d ${voice_dataset_dir}/prompt-lab ] ; then
 #cp -rf ${voice_dataset_dir}/prompt-lab ${voice_dataset_dir}/test_id_list.scp ${synthesis_dir}
 
 #fi
